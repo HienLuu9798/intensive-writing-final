@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTENSIVE FINAL WRITING TEST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .left-panel {
+            width: 45%;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .right-panel {
+            width: 53%;
+            border: 1px solid #070606;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #8f7a7a;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-family: "Times New Roman", Times, serif;
+            padding: 10px;
+        }
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: red;
+        }
+        .task-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>INTENSIVE FINAL WRITING TEST</h1>
+    <label for="name">Full name:</label>
+    <input type="text" id="name" name="name">
+    <div id="timer">Remaining time: 60:00</div>
+    
+    <div class="container">
+        <div class="left-panel">
+            <h2>Writing Task 1</h2>
+            <img src="Screenshot 2025-02-27 at 20.46.20.png" alt="Writing Task 1" class="task-image">
+            <h2>Writing Task 2</h2>
+            <img src="Screenshot 2025-02-27 at 20.47.28.png" alt="Writing Task 2" class="task-image">
+        </div>
+        <div class="right-panel">
+            <h3>Task 1</h3>
+            <textarea id="task1"></textarea>
+            <h3>Task 2</h3>
+            <textarea id="task2"></textarea>
+        </div>
+    </div>
+    
+    <script>
+        let timeLeft = 3600;
+        function updateTimer() {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("timer").innerText = `Remaining time: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            }
+        }
+        updateTimer();
+    </script>
+</body>
+</html>
