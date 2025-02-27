@@ -83,29 +83,34 @@
 
         // Submit test data to Firebase using fetch
         function submitTest() {
-            const name = document.getElementById("name").value;
-            const task1 = document.getElementById("task1").value;
-            const task2 = document.getElementById("task2").value;
+        const name = document.getElementById("name").value.trim();
+        const task1 = document.getElementById("task1").value;
+        const task2 = document.getElementById("task2").value;
 
-            fetch(firebaseURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: name,
-                    task1: task1,
-                    task2: task2
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("Data saved successfully!");
-            })
-            .catch(error => {
-                alert("Data could not be saved. " + error);
-            });
+        if (name === "") {
+            alert("Please enter your full name before submitting.");
+            return; // Dừng lại nếu tên trống
         }
+
+        fetch(firebaseURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                task1: task1,
+                task2: task2
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Data saved successfully!");
+        })
+        .catch(error => {
+            alert("Data could not be saved. " + error);
+        });
+    }
     </script>
         
 </head>
