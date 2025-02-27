@@ -15,11 +15,13 @@
             justify-content: space-between;
         }
         .left-panel {
-            width: 45%;
+            width: 40%;
             border: 1px solid #ccc;
             padding: 15px;
             border-radius: 8px;
             background-color: #f9f9f9;
+            max-height: 800px;
+            overflow-y: auto;
         }
         .right-panel {
             width: 53%;
@@ -46,7 +48,66 @@
             width: 100%;
             border-radius: 8px;
         }
+        .submit-button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+        }
     </style>
+    <script>
+      const firebaseURL = "https://intensive-writing-default-rtdb.firebaseio.com/submissions.json";
+    </script>
+    <script>
+        // Save data to Firebase
+        function saveData() {
+            const name = document.getElementById("name").value;
+            const task1 = document.getElementById("task1").value;
+            const task2 = document.getElementById("task2").value;
+            db.ref("intensive-writing").push({
+                name: name,
+                task1: task1,
+                task2: task2
+            }, function(error) {
+                if (error) {
+                    alert("Data could not be saved. " + error);
+                } else {
+                    alert("Data saved successfully!");
+                }
+            });
+        }
+
+        // Submit test data to Firebase using fetch
+        function submitTest() {
+            const name = document.getElementById("name").value;
+            const task1 = document.getElementById("task1").value;
+            const task2 = document.getElementById("task2").value;
+
+            fetch(firebaseURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    task1: task1,
+                    task2: task2
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Data saved successfully!");
+            })
+            .catch(error => {
+                alert("Data could not be saved. " + error);
+            });
+        }
+    </script>
+        
 </head>
 <body>
     <h1>INTENSIVE FINAL WRITING TEST</h1>
@@ -66,6 +127,7 @@
             <textarea id="task1"></textarea>
             <h3>Task 2</h3>
             <textarea id="task2"></textarea>
+            <button type="button" class="submit-button" onclick="submitTest()">Submit</button>
         </div>
     </div>
     
@@ -81,6 +143,7 @@
             }
         }
         updateTimer();
+        
     </script>
 </body>
 </html>
